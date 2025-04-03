@@ -1,7 +1,7 @@
 const fs = require("fs");
 const path = require("path");
 
-const moviesFile = path.join(__dirname, "../../public/movies.json");
+const moviesFile = path.join(__dirname, "movies.json");  // 🔥 Asegurar que el archivo está dentro de la función
 
 exports.handler = async function() {
     try {
@@ -9,12 +9,14 @@ exports.handler = async function() {
             const data = fs.readFileSync(moviesFile, "utf-8");
             return {
                 statusCode: 200,
-                body: data
+                body: data,
+                headers: { "Content-Type": "application/json" } // 🔥 Asegurar que el navegador lo trate como JSON
             };
         } else {
             return {
                 statusCode: 200,
-                body: "[]"
+                body: "[]",
+                headers: { "Content-Type": "application/json" }
             };
         }
     } catch (error) {
