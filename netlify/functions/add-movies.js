@@ -12,7 +12,7 @@ exports.handler = async (event) => {
 
     try {
         const movie = JSON.parse(event.body);
-        const filePath = "./data/movies.json";
+        const filePath = "./public/movies.json";
 
         let movies = [];
         if (fs.existsSync(filePath)) {
