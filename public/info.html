@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detalles de la Película</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://wa.cdn-surfline.com/quiver/0.12.5/scripts/jwplayer.js"></script>
+</head>
+<body>
+    <div id="movie-details"></div>
+
+    <script>
+        async function loadMovieDetails() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const movieName = urlParams.get("name");
+
+            const response = await fetch("/.netlify/functions/get-selected-movies");
+            const movies = await response.json();
+
+            const movie = movies.find(m => m.movie_name === movieName);
+            
+            if (!movie) {
+                document.getElementById("movie-details").innerHTML = "<p>Película no encontrada.</p>";
+                return;
+            }
+
+            document.getElementById("movie-details").innerHTML = `
+            
+                <div class="banner" style="background-image: url('${movie.banner_image}')">
+                    <h1>${movie.movie_name}</h1>
+                </div>
+                <div class="content">
+                    <img src="${movie.post_image}" alt="${movie.movie_name}">
+                    <div class="info">
+                        <p><strong>Género:</strong> ${movie.genre}</p>
+                        <p><strong>Año:</strong> ${movie.year}</p>
+                        <p><strong>Rating:</strong> ⭐${movie.rating}</p>
+                        <p>${movie.synopsis}</p>
+                    </div>
+                </div>
+                <div class="play-movie">
+                    <div id="my-video"></div>
+                </div>
+            `;
+
+            // Configuración de JWPlayer
+            jwplayer.key = "XSuP4qMl+9tK17QNb+4+th2Pm9AWgMO/cYH8CI0HGGr7bdjo";
+
+            var player = jwplayer("my-video").setup({
+                file: movie.movie_link,
+                aspectratio: "16:9",
+                autostart: false,
+                image: movie.post_image,
+                logo: {
+                    "file": "https://fastmovie.netlify.app/images/fas.png",
+                    "link": "https://fastmovie.netlify.app/",
+                    "position": "top-left",
+                },
+                defaultQuality: -1,
+                playbackRateControls: [0.5, 1, 1.5, 2],
+                controls: true
+            });
+        }
+
+        document.addEventListener("DOMContentLoaded", loadMovieDetails);
+    </script>
+</body>
+</html>

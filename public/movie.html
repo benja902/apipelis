@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Películas Añadidas</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            padding: 20px;
+        }
+        .movies-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: flex-start;
+        }
+        .movie-card {
+            width: calc(25% - 20px);
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+        .movie-card img {
+            width: 100%;
+            border-radius: 6px;
+        }
+        @media (max-width: 900px) {
+            .movie-card { width: calc(50% - 20px); }
+        }
+        @media (max-width: 600px) {
+            .movie-card { width: 100%; }
+        }
+    </style>
+</head>
+<body>
+    <h1>Mis Películas</h1>
+    <div class="movies-container" id="movies-container"></div>
+<script>
+        async function loadSelectedMovies() {
+            const response = await fetch("/.netlify/functions/get-selected-movies");
+            const movies = await response.json();
+
+            const container = document.getElementById("movies-container");
+            container.innerHTML = "";
+
+            movies.forEach(movie => {
+                const movieElement = document.createElement("div");
+                movieElement.classList.add("post-box");
+
+                movieElement.innerHTML = `
+                    <div class="post-img">
+                        <img src="${movie.post_image}" alt="${movie.movie_name}">
+                    </div>
+                    <div class="main-slider-text">
+                        <span class="quality">Full HD</span>
+                        <div class="bottom-text">
+                            <div class="movie-name">
+                                <span>${movie.year}</span>
+                                <a href="#">${movie.movie_name}</a>
+                            </div>
+                            <div class="category-rating">
+                                <div class="category">
+                                    ${movie.genre.split(",").map(genre => `<a href="#">${genre.trim()}</a>`).join(",")}
+                                </div>
+                                <div class="rating">
+                                    ${movie.rating} <img src="images/IMDb-icon.png" alt="IMDB">
+                                    <a href="info.html?name=${encodeURIComponent(movie.movie_name)}">Ver Detalles</a>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+
+                container.appendChild(movieElement);
+            });
+        }
+
+        document.addEventListener("DOMContentLoaded", loadSelectedMovies);
+    </script>
+    
+</body>
+</html>

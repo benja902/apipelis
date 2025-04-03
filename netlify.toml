@@ -1,0 +1,8 @@
+[build]
+publish = "public"  # Esto dice que el HTML está en la carpeta public
+functions = "netlify/functions"
+
+[[redirects]]
+from = "/api/*"
+to = "/.netlify/functions/:splat"
+status = 200

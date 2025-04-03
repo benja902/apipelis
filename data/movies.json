@@ -1,0 +1,57 @@
+[
+  {
+    "movie_name": "Novocaine",
+    "rating": "8.9",
+    "year": "2025",
+    "genre": "Acción",
+    "synopsis": "sdsds",
+    "movie_link": "https://r2-worker.benja902674.workers.dev/output.m3u8",
+    "post_image": "https://image.tmdb.org/t/p/w600_and_h900_bestv2/650Od7sOKCTnS9zWaCALkyTaD8E.jpg",
+    "banner_image": "https://image.tmdb.org/t/p/w1066_and_h600_bestv2/nhx0ttmAS2w8e6hyIcKoNvgHoix.jpg",
+    "id": "novocaine-2025"
+  },
+  {
+    "movie_name": "Peter Pan: Pesadilla en Nunca Jamás",
+    "rating": "5.8",
+    "year": "2028",
+    "genre": "Terror, Suspenso, Fantasía",
+    "synopsis": "ggv",
+    "movie_link": "https://image.tmdb.org/t/p/w1066_and_h600_bestv2/nhx0ttmAS2w8e6hyIcKoNvgHoix.jpg",
+    "post_image": "https://image.tmdb.org/t/p/w600_and_h900_bestv2/650Od7sOKCTnS9zWaCALkyTaD8E.jpg",
+    "banner_image": "https://image.tmdb.org/t/p/w1066_and_h600_bestv2/nhx0ttmAS2w8e6hyIcKoNvgHoix.jpg",
+    "id": "peter-pan:-pesadilla-en-nunca-jamás-2028"
+  },
+  {
+    "movie_name": "Peter Pan",
+    "rating": "7.2",
+    "year": "1953",
+    "genre": "Animación, Familia, Aventura, Fantasía",
+    "synopsis": "Uno de los grandes clásicos de la factoría Walt Disney, que relata las aventuras en el País de Nunca Jamás de Peter Pan, su compañera Campanilla, su amiga Wendy y los Niños Perdidos, en su lucha contra el malvado Capitán Garfio.",
+    "movie_link": "https://image.tmdb.org/t/p/w1066_and_h600_bestv2/vwcfvPzYO3Gz975yRXp6DYSSbzo.jpg",
+    "post_image": "https://image.tmdb.org/t/p/w600_and_h900_bestv2/4UkIf8tIO9Jr5wHrdkTscAvSzgG.jpg",
+    "banner_image": "https://image.tmdb.org/t/p/w1066_and_h600_bestv2/vwcfvPzYO3Gz975yRXp6DYSSbzo.jpg",
+    "id": "peter-pan-1953"
+  },
+  {
+    "movie_name": "Peter Pan: Pesadilla en Nunca Jamás",
+    "rating": "5.8",
+    "year": "2025",
+    "genre": "Terror, Suspenso, Fantasía",
+    "synopsis": "Sigue a Wendy Darling en su intento de rescatar a su hermano Michael de \"las garras del malvado Peter Pan\". Por el camino conoce a Campanilla, que en esta retorcida versión del cuento se verá tomando heroína, convencida de que es polvo de hadas. La famosa historia de Peter Pan reinventada como un film de terror por Jagged Edge Productions, productora de \"Winnie the Pooh: Blood and Honey\".",
+    "movie_link": "https://image.tmdb.org/t/p/w1066_and_h600_bestv2/nhx0ttmAS2w8e6hyIcKoNvgHoix.jpg",
+    "post_image": "https://image.tmdb.org/t/p/w600_and_h900_bestv2/650Od7sOKCTnS9zWaCALkyTaD8E.jpg",
+    "banner_image": "https://image.tmdb.org/t/p/w1066_and_h600_bestv2/nhx0ttmAS2w8e6hyIcKoNvgHoix.jpg",
+    "id": "peter-pan:-pesadilla-en-nunca-jamás-2025"
+  },
+  {
+    "movie_name": "Criminales de lujo",
+    "rating": "7.1",
+    "year": "2025",
+    "genre": "Acción, Aventura",
+    "synopsis": "dsadas",
+    "movie_link": "https://tv.apple.com/PE/channel/tvs.sbd.4000?app=tv&at=1000l35t3&ct=500145567_100006536&itscg=30200&itsct=BIT_TV&mttnagencyid=a9p&mttn3pid=bandsintown_amplified&mttnsiteid=143238&cc=PE&mttncc=PE&mttnsubad=cf-500145567&mttnsubplmnt=100006536&mttnsubkw=themoviedb.org",
+    "post_image": "https://image.tmdb.org/t/p/w600_and_h900_bestv2/rpAbueORafYSgTk2oSc2t6ayktb.jpg",
+    "banner_image": "https://image.tmdb.org/t/p/w1920_and_h800_multi_faces/is9bmV6uYXu7LjZGJczxrjJDlv8.jpg",
+    "id": "criminales-de-lujo-2025"
+  }
+]
