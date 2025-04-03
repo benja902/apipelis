@@ -3,7 +3,11 @@ const path = require("path");
 
 exports.handler = async (event) => {
     if (event.httpMethod !== "POST") {
-        return { statusCode: 405, body: "Método no permitido" };
+        return {
+            statusCode: 405,
+            headers: { "Access-Control-Allow-Origin": "*" },
+            body: "Método no permitido"
+        };
     }
 
     try {
@@ -33,7 +37,8 @@ exports.handler = async (event) => {
 
         return {
             statusCode: 200,
-            body: JSON.stringify({ message: "Película añadida con éxito" })
+            headers: { "Access-Control-Allow-Origin": "*" },
+            body: JSON.stringify({ message: "Película agregada con éxito" })
         };
     } catch (error) {
         return { statusCode: 500, body: JSON.stringify({ error: "Error al guardar" }) };
