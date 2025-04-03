@@ -3,7 +3,7 @@ const path = require("path");
 
 exports.handler = async () => {
     try {
-        const filePath = path.join(__dirname, "../../data/selected-movies.json");
+        const filePath = path.join(__dirname, "../../public/selected-movies.json");
 
         if (!fs.existsSync(filePath)) {
             return { statusCode: 200, body: JSON.stringify([]) };

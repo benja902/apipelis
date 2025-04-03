@@ -1,7 +1,7 @@
 const fs = require("fs");
 const path = require("path");
 
-const moviesFile = path.join(__dirname, "../../data/movies.json");
+const moviesFile = path.join(__dirname, "../../public/movies.json");
 
 exports.handler = async function() {
     try {
