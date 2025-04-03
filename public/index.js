@@ -1,4 +1,4 @@
-document.getElementById("movie-form").addEventListener("submit", async function(event) {
+document.getElementById("movie-form").addEventListener("submit", async function (event) {
     event.preventDefault();
 
     const movieData = {
@@ -12,27 +12,32 @@ document.getElementById("movie-form").addEventListener("submit", async function(
         banner_image: document.getElementById("banner_image").value
     };
 
-    const response = await fetch("/.netlify/functions/add-movies", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(movieData)
-    });
+    try {
+        const response = await fetch("/.netlify/functions/add-movies", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(movieData)
+        });
 
-    const result = await response.json();
+        const result = await response.json();
 
-    if (response.status === 400) {
-        alert(result.message); // 🚨 Mostrar alerta si la película ya existe
-    } else {
+        if (!response.ok) {
+            throw new Error(result.message || "Error al añadir la película.");
+        }
+
         alert(result.message);
-        loadMovies(); // Recargar lista sin refrescar la página
+        loadMovies(); // Recargar la lista sin refrescar la página
         this.reset();
+    } catch (error) {
+        alert(`Error: ${error.message}`);
+        console.error("Error al agregar película:", error);
     }
 });
 
-// 🔥 Agregar evento de búsqueda y filtro
-// 🔥 Agregar evento de búsqueda y filtro
+// 🔥 Buscar y filtrar películas
 document.getElementById("search-bar").addEventListener("input", loadMovies);
 document.getElementById("filter-genre").addEventListener("change", loadMovies);
+
 const generos = {
     28: "Acción",
     12: "Aventura",
@@ -49,15 +54,14 @@ const generos = {
     9648: "Misterio",
     10749: "Romance",
     878: "Ciencia Ficción",
-    10770: "Triller",
+    10770: "Thriller",
     53: "Suspenso",
-    10752: "Bélico",
+    10752: "Bélico"
 };
 
-// 🔥 Cargar géneros en el <select>
+// 🔥 Cargar opciones de géneros
 function loadGenreOptions() {
     const genreSelect = document.getElementById("filter-genre");
-
     Object.values(generos).forEach(genre => {
         const option = document.createElement("option");
         option.value = genre.toLowerCase();
@@ -68,36 +72,31 @@ function loadGenreOptions() {
 
 // 🔥 Cargar y filtrar películas
 async function loadMovies() {
-    const searchQuery = document.getElementById("search-bar").value.toLowerCase();
-    const selectedGenre = document.getElementById("filter-genre").value.toLowerCase();
+    try {
+        const searchQuery = document.getElementById("search-bar").value.toLowerCase();
+        const selectedGenre = document.getElementById("filter-genre").value.toLowerCase();
 
-    const response = await fetch("/.netlify/functions/get-movies");
-    const movies = await response.json();
+        const response = await fetch("/.netlify/functions/get-movies");
+        const movies = await response.json();
 
-    const filteredMovies = movies.filter(movie => {
-        const movieName = movie.movie_name.toLowerCase();
-        const movieGenres = movie.genre.split(", ").map(g => g.trim().toLowerCase()); // 🔥 Ahora se maneja como array
+        const filteredMovies = movies.filter(movie => {
+            const movieName = movie.movie_name.toLowerCase();
+            const movieGenres = movie.genre.split(", ").map(g => g.trim().toLowerCase());
 
-        const matchesSearch = movieName.includes(searchQuery);
-        const matchesGenre = selectedGenre === "" || movieGenres.includes(selectedGenre);
+            const matchesSearch = movieName.includes(searchQuery);
+            const matchesGenre = selectedGenre === "" || movieGenres.includes(selectedGenre);
 
-        return matchesSearch && matchesGenre;
-    });
+            return matchesSearch && matchesGenre;
+        });
 
-    displayMovies(filteredMovies);
+        displayMovies(filteredMovies);
+    } catch (error) {
+        console.error("Error al cargar las películas:", error);
+    }
 }
 
-// 🔥 Cargar géneros y películas al cargar la página
-document.addEventListener("DOMContentLoaded", () => {
-    loadGenreOptions();
-    loadMovies();
-});
-
-
-// Función para cargar películas desde el backend
+// 🔥 Mostrar películas en la página
 async function displayMovies(movies) {
-    // const response = await fetch("/.netlify/functions/get-movies");
-    // const movies = await response.json();
     const movieContainer = document.getElementById("movie-list");
     movieContainer.innerHTML = "";
 
@@ -105,8 +104,7 @@ async function displayMovies(movies) {
         const movieElement = document.createElement("div");
         movieElement.classList.add("movie-item");
 
-        // 🔥 Asegurarnos de que los géneros sean correctamente extraídos y visibles para el filtro
-        const genres = movie.genre.split(", ").map(g => g.trim()).join(", ");  
+        const genres = movie.genre.split(", ").map(g => g.trim()).join(", ");
 
         movieElement.innerHTML = `
             <h3>${movie.movie_name} (${movie.year})</h3>
@@ -120,32 +118,39 @@ async function displayMovies(movies) {
         movieContainer.appendChild(movieElement);
     });
 
-    // Agregar evento a los botones "Añadir"
     document.querySelectorAll(".add-movie-btn").forEach(button => {
-        button.addEventListener("click", function() {
+        button.addEventListener("click", function () {
             const movie = JSON.parse(this.getAttribute("data-movie"));
             addToMoviePage(movie);
         });
     });
 }
 
-// Función para añadir películas a movie.html
+// 🔥 Guardar película seleccionada
 async function addToMoviePage(movie) {
-    const response = await fetch("/.netlify/functions/save-selected-movies", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(movie)
-    });
+    try {
+        const response = await fetch("/.netlify/functions/save-selected-movies", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(movie)
+        });
 
-    const result = await response.json();
+        const result = await response.json();
 
-    if (response.status === 400) {
-        alert(result.message); // Mostrar error si la película ya existe
-    } else {
+        if (!response.ok) {
+            throw new Error(result.message || "Error al añadir la película.");
+        }
+
         alert(result.message);
         window.location.href = "movie.html";
+    } catch (error) {
+        alert(`Error: ${error.message}`);
+        console.error("Error al añadir película:", error);
     }
 }
 
-
-document.addEventListener("DOMContentLoaded", loadMovies);
+// 🔥 Cargar géneros y películas al cargar la página
+document.addEventListener("DOMContentLoaded", () => {
+    loadGenreOptions();
+    loadMovies();
+});
